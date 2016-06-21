@@ -1,0 +1,15 @@
+<package>
+  <description brief="quadcopter">
+  	A modified version of the original package
+	http://github.com/mikehamer/ardrone_tutorials
+  </description>
+
+  <review status="unreviewed" notes=""/>
+  <url>http://github.com/mikehamer/ardrone_tutorials</url>
+
+  <depend package="ardrone_autonomy" />
+  <depend package="joy" />
+  
+</package>
+
+

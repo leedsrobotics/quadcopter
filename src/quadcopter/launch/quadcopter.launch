@@ -1,0 +1,27 @@
+<launch>
+	<!-- Launches the AR.Drone driver -->
+	<node name="ardrone_driver" pkg="ardrone_autonomy" type="ardrone_driver" output="screen" clear_params="true">
+	    <param name="outdoor" value="0" /> <!-- If we are flying outdoors, will select more aggressive default settings -->
+	    <param name="flight_without_shell" value="0" /> <!-- Changes internal controller gains if we are flying without the propeller guard -->
+
+	    <param name="do_imu_caliberation" value="true" />
+
+	    <param name="altitude_max" value="1100" /> <!-- in millimeters = 3 meters = 9' -->
+        <param name="altitude_min" value="50" /> <!-- in millimeters = 5cm = 2" -->
+        <param name="euler_angle_max" value="0.1" /> <!-- maximum allowable body angle in radians = 5 degrees -->
+        <param name="control_vz_max" value="200" /> <!-- maximum z velocity in mm/sec = 0.2m/sec -->
+	    <param name="control_yaw" value="2.0" /> <!-- maximum rotation rate in radians/sec = 40 degrees per second (1/9 rev/sec) -->
+
+	<!-- Tunes the speed at which the ros loop runs, and thus, the rate at which navdata is published -->
+		<param name="looprate" value="200" />
+
+	<!-- Covariance Values (3x3 matrices reshaped to 1x9)-->
+        <rosparam param="cov/imu_la">[0.1, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1]</rosparam>
+        <rosparam param="cov/imu_av">[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]</rosparam>
+        <rosparam param="cov/imu_or">[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 100000.0]</rosparam>	
+
+	</node>
+	
+	<!-- Launches the keyboard controller -->
+	<node name="keyboard_controller" pkg="quadcopter" type="keyboard_controller.py" required="true" output="screen"/>
+</launch>
